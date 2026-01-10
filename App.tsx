@@ -1,20 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { StyleSheet, Text, View , FlatList,ScrollView} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Post from './components/Post';
+import postData from './post-data.json'
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{gap:30}}>
+      <ScrollView>
+        <Text  style={{fontSize:50, fontWeight:"700",padding:5,marginLeft:15, marginTop:10}}>Intergram</Text>
+
+        <FlatList 
+            data={postData}
+          keyExtractor={(item) =>item.id.toString()}
+          renderItem={({item}) =>
+           <Post 
+               username={item.username}
+               caption={item.caption}
+               image={item.image}
+               profile={item.profile}
+           />
+          }
+              contentContainerStyle={{gap:20}}
+         
+       />
+
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
